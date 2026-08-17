@@ -245,8 +245,8 @@ class _LoginScreenState extends State<LoginScreen>
                     const CloudDriftAnimation(cloudColor: Colors.white),
                     FlightCrossAnimation(
                       progress: _loadingCrossAnim,
-                      planeSize: 130,
-                      heliSize: 110,
+                      planeSize: 60,
+                      heliSize: 50,
                     ),
                     Center(
                       child: Container(

@@ -76,11 +76,11 @@ class _SplashScreenState extends State<SplashScreen>
               cloudColor: Colors.white,
             ),
 
-            // Real PNG Airplane and Helicopter cross-flying and interchanging corners
+            // Vector Airplane and Helicopter cross-flying and interchanging corners
             FlightCrossAnimation(
               progress: _flightCrossController,
-              planeSize: 140,
-              heliSize: 120,
+              planeSize: 64,
+              heliSize: 54,
             ),
 
             // Center Branding & Circular Loader
