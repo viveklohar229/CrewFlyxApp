@@ -18,28 +18,28 @@ workflows:
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
 
-ios-simulator:
-  name: Crew Flyx iOS Simulator
-  instance_type: mac_mini_m2
+  ios-simulator:
+    name: Crew Flyx iOS Simulator
+    instance_type: mac_mini_m2
 
-  environment:
-    flutter: stable
-    xcode: latest
-    cocoapods: default
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
 
-  scripts:
-    - name: Get Flutter packages
-      script: |
-        flutter pub get
+    scripts:
+      - name: Get Flutter packages
+        script: |
+          flutter pub get
 
-    - name: Install CocoaPods dependencies
-      script: |
-        find . -name "Podfile" -execdir pod install \;
+      - name: Install CocoaPods dependencies
+        script: |
+          find . -name "Podfile" -execdir pod install \;
 
-    - name: Build iOS Simulator
-      script: |
-        flutter build ios --simulator --no-codesign
+      - name: Build iOS Simulator
+        script: |
+          flutter build ios --simulator --no-codesign
 
-  artifacts:
-    - build/ios/iphonesimulator/**/*.app
-    - /tmp/xcodebuild_logs/*.log
+    artifacts:
+      - build/ios/iphonesimulator/**/*.app
+      - /tmp/xcodebuild_logs/*.log
