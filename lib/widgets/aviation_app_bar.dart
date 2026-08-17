@@ -92,7 +92,7 @@ class AviationAppBar extends StatelessWidget implements PreferredSizeWidget {
                     color: AppColors.emergencyRed,
                     shape: BoxShape.circle,
                   ),
-                  constraints: const Size(18, 18),
+                  constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
                   child: Center(
                     child: Text(
                       unreadCount > 9 ? '9+' : '$unreadCount',
