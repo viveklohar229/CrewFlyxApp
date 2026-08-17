@@ -1,7 +1,7 @@
 workflows:
   android-build:
     name: Crew Flyx Android
-    instance_type: linux_x2
+    instance_type: mac_mini_m2
 
     environment:
       flutter: stable
@@ -17,6 +17,7 @@ workflows:
 
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
+
 
   ios-simulator:
     name: Crew Flyx iOS Simulator
