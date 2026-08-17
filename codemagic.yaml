@@ -1,0 +1,45 @@
+workflows:
+  android-build:
+    name: Crew Flyx Android
+    instance_type: linux_x2
+
+    environment:
+      flutter: stable
+
+    scripts:
+      - name: Get Flutter packages
+        script: |
+          flutter pub get
+
+      - name: Build Android APK
+        script: |
+          flutter build apk --release
+
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+
+  ios-simulator:
+    name: Crew Flyx iOS Simulator
+    instance_type: mac_mini_m2
+
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+
+    scripts:
+      - name: Get Flutter packages
+        script: |
+          flutter pub get
+
+      - name: Install CocoaPods
+        script: |
+          cd ios
+          pod install
+
+      - name: Build iOS Simulator
+        script: |
+          flutter build ios --simulator --no-codesign
+
+    artifacts:
+      - build/ios/iphonesimulator/*.app
