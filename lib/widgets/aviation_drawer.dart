@@ -213,7 +213,8 @@ class AviationDrawer extends StatelessWidget {
   }
 
   void _confirmLogout(BuildContext context, AppState state) {
-    Navigator.of(context).pop(); // Close drawer
+    final navigator = Navigator.of(context);
+    navigator.pop(); // Close drawer
     showDialog(
       context: context,
       builder: (dialogCtx) => AlertDialog(
@@ -239,9 +240,7 @@ class AviationDrawer extends StatelessWidget {
             onPressed: () async {
               Navigator.of(dialogCtx).pop();
               await state.logout();
-              if (context.mounted) {
-                Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
-              }
+              navigator.pushNamedAndRemoveUntil('/login', (route) => false);
             },
             child: const Text(AppStrings.confirm),
           ),

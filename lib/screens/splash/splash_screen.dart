@@ -2,12 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
-import '../../animations/airplane_flight_animation.dart';
-import '../../animations/helicopter_flight_animation.dart';
+import '../../animations/flight_cross_animation.dart';
 import '../../animations/cloud_drift_animation.dart';
 import '../../widgets/aviation_logo.dart';
 
-/// Aviation-themed 5-second Splash Screen with flying airplane and helicopter animations.
+/// Aviation-themed 5-second Splash Screen with real PNG Airplane and Helicopter cross-flight animation.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -17,8 +16,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  late AnimationController _planeController;
-  late AnimationController _heliController;
+  late AnimationController _flightCrossController;
   late AnimationController _loaderPulseController;
   late AnimationController _contentFadeController;
   Timer? _navigationTimer;
@@ -27,16 +25,10 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // Airplane flight animation (swiping across the upper sky)
-    _planeController = AnimationController(
+    // Flight cross animation (Airplane bottom-left to top-right, Helicopter top-right to bottom-left)
+    _flightCrossController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3800),
-    )..forward();
-
-    // Helicopter flight animation (crossing the mid-lower sky)
-    _heliController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 4400),
+      duration: const Duration(milliseconds: 4800),
     )..forward();
 
     // Pulse effect for modern radar loader
@@ -62,8 +54,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void dispose() {
     _navigationTimer?.cancel();
-    _planeController.dispose();
-    _heliController.dispose();
+    _flightCrossController.dispose();
     _loaderPulseController.dispose();
     _contentFadeController.dispose();
     super.dispose();
@@ -85,19 +76,11 @@ class _SplashScreenState extends State<SplashScreen>
               cloudColor: Colors.white,
             ),
 
-            // Animated Airplane swooping across the screen
-            AirplaneFlightAnimation(
-              animation: _planeController,
-              size: 60,
-              planeColor: Colors.white,
-              trailColor: Colors.white.withValues(alpha: 0.6),
-            ),
-
-            // Animated Helicopter crossing through the screen with rotating rotors
-            HelicopterFlightAnimation(
-              flightProgress: _heliController,
-              size: 52,
-              bodyColor: Colors.white,
+            // Real PNG Airplane and Helicopter cross-flying and interchanging corners
+            FlightCrossAnimation(
+              progress: _flightCrossController,
+              planeSize: 140,
+              heliSize: 120,
             ),
 
             // Center Branding & Circular Loader

@@ -171,7 +171,69 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
+
+          // Section: Logout
+          Container(
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.cardDark : AppColors.cardLight,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: AppColors.emergencyRed.withValues(alpha: 0.3),
+                width: 1.2,
+              ),
+            ),
+            child: ListTile(
+              leading: const Icon(Icons.logout_rounded, color: AppColors.emergencyRed),
+              title: const Text(
+                'Logout from Crew Flyx',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.emergencyRed,
+                ),
+              ),
+              subtitle: const Text('End active crew session and return to login', style: TextStyle(fontSize: 12)),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: AppColors.emergencyRed),
+              onTap: () {
+                final navigator = Navigator.of(context);
+                showDialog(
+                  context: context,
+                  builder: (dialogCtx) => AlertDialog(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    title: const Row(
+                      children: [
+                        Icon(Icons.logout, color: AppColors.emergencyRed),
+                        SizedBox(width: 10),
+                        Text(AppStrings.logoutConfirmTitle),
+                      ],
+                    ),
+                    content: const Text(AppStrings.logoutConfirmMessage),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(dialogCtx).pop(),
+                        child: const Text(AppStrings.cancel),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.emergencyRed,
+                          foregroundColor: Colors.white,
+                        ),
+                        onPressed: () async {
+                          Navigator.of(dialogCtx).pop();
+                          await state.logout();
+                          navigator.pushNamedAndRemoveUntil('/login', (route) => false);
+                        },
+                        child: const Text(AppStrings.confirm),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+
+          const SizedBox(height: 28),
         ],
       ),
     );
